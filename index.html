@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#245b83">
 <title>西暦・和暦変換／経過年数</title>
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="西暦・和暦変換">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <style>
 :root{font-family:-apple-system,BlinkMacSystemFont,"Yu Gothic UI","Meiryo",sans-serif;color:#1f2937;background:#f3f6f9}
 *{box-sizing:border-box} body{margin:0;padding:20px 14px 36px}
@@ -237,6 +242,13 @@ function addMonthsClamped(date,months){
  return new Date(first.getFullYear(),first.getMonth(),Math.min(d,last));
 }
 
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(err => console.warn('オフライン登録に失敗:', err));
+  });
+}
 </script>
 </body>
 </html>
