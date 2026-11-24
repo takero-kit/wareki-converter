@@ -93,7 +93,7 @@ button.copy{background:#386b55;flex:0 0 48px;width:48px;min-width:48px;display:i
 
 
 <p class="note">対応元号：明治・大正・昭和・平成・令和。元号の開始日・終了日を日単位で判定します。日付の計算はこの端末内で行い、入力内容を外部へ送信しません。</p>
-<div class="footer">オフライン対応・第15版</div>
+<div class="footer">オフライン対応・第17版</div>
 </main>
 <div id="keypadBackdrop" role="dialog" aria-modal="true" aria-labelledby="keypadTitle" onclick="if(event.target===this)closeKeypad()">
  <div id="keypad">
@@ -213,6 +213,7 @@ function readDate(prefix){
  if(!document.getElementById(prefix+"y").value||!document.getElementById(prefix+"m").value||!document.getElementById(prefix+"d").value)return {error:"年・月・日をすべて入力してください。"};
  const dt=makeDate(y,m,d);return dt?{dt}:{error:"実在する日付を入力してください。"};
 }
+
 function durationText(dt){
  const today=new Date();today.setHours(0,0,0,0);
  let start=dt,end=today,heading="経過年数";
@@ -224,12 +225,12 @@ function durationText(dt){
  let cursor2=addMonthsClamped(cursor,months);
  if(cursor2>end){months--;cursor2=addMonthsClamped(cursor,months)}
  const days=Math.round((end-cursor2)/86400000);
- return `<div style="margin-top:9px;border-top:1px solid #c9dce8;padding-top:9px">${heading}<br><span style="font-size:1.456rem">${years}年${months}か月${days}日</span></div>`;
+ return `<div style="margin-top:3px">${heading}：<span style="font-size:1.456rem">${years}年${months}か月${days}日</span></div>`;
 }
 function fromGregorian(){
  const r=readDate("g");if(r.error)return show("gResult",r.error,true);
  const w=eraText(r.dt);if(!w)return show("gResult","明治元年の開始日（1868年1月25日）以降の日付を入力してください。",true);
- show("gResult",`<strong>${w}</strong>${durationText(r.dt)}`);
+ show("gResult",`変換結果：<strong>${w}</strong>${durationText(r.dt)}`);
 }
 function toGregorian(){
  const name=document.getElementById("era").value;
@@ -239,8 +240,9 @@ function toGregorian(){
  const e=eras.find(x=>x.name===name),dt=makeDate(e.startYear+y-1,m,d);
  if(!dt)return show("eResult","実在する日付を入力してください。",true);
  if(iso(dt)<e.start||iso(dt)>e.end)return show("eResult",`${name}${y===1?"元":y}年の日付としては範囲外です。元号の開始日・終了日を確認してください。`,true);
- show("eResult",`<strong>${dateText(dt)}</strong>${durationText(dt)}`);
+ show("eResult",`変換結果：<strong>${dateText(dt)}</strong>${durationText(dt)}`);
 }
+
 function addMonthsClamped(date,months){
  const y=date.getFullYear(),m=date.getMonth()+months,d=date.getDate();
  const first=new Date(y,m,1),last=new Date(first.getFullYear(),first.getMonth()+1,0).getDate();
