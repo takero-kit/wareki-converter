@@ -225,7 +225,7 @@ function durationText(dt){
  let cursor2=addMonthsClamped(cursor,months);
  if(cursor2>end){months--;cursor2=addMonthsClamped(cursor,months)}
  const days=Math.round((end-cursor2)/86400000);
- return `<div style="margin-top:9px;border-top:1px solid #c9dce8;padding-top:9px">${heading}<br><strong>満${years}年</strong><br>${years}年${months}か月${days}日</div>`;
+ return `<div style="margin-top:9px;border-top:1px solid #c9dce8;padding-top:9px">${heading}<br>${years}年${months}か月${days}日</div>`;
 }
 function fromGregorian(){
  const r=readDate("g");if(r.error)return show("gResult",r.error,true);
