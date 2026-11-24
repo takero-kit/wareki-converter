@@ -25,10 +25,16 @@ input,select{width:100%;padding:12px 10px;border:1px solid #aebdca;border-radius
 button{border:0;border-radius:9px;padding:12px 18px;font-size:1rem;font-weight:600;background:#245b83;color:white;cursor:pointer;margin-top:14px}
 button:active{opacity:.8}
 .actions{display:flex;gap:8px;flex-wrap:nowrap;align-items:stretch;width:100%}
-.actions button{flex:1 1 0;min-width:0;padding:12px 6px;white-space:nowrap;margin-top:14px}
+.actions button{flex:1 1 0;min-width:0;padding:12px 10px;white-space:nowrap;margin-top:14px}
 button.secondary{background:#e6eef5;color:#17476b;border:1px solid #aec3d4}
 button.copy{background:#386b55;flex:0 0 48px;width:48px;min-width:48px;display:inline-flex;justify-content:center;align-items:center;padding:12px}button.copy svg{display:block}button.copy:focus-visible{outline:3px solid #ffb83d;outline-offset:2px}
 .today-banner .today-line{display:block;text-align:left;max-width:320px;margin:0 auto}
+.today-banner .today-label{display:block;text-align:left;max-width:320px;margin:0 auto 5px;font-size:1rem}
+.era-row{margin-bottom:10px}.era-row .field{flex:0 1 190px}
+.date-row{flex-wrap:nowrap;gap:8px}.date-row .field{flex:1 1 0;min-width:0}
+.date-row input{min-width:0;padding:12px 7px}
+.result-label{font-weight:700;color:#17476b;margin-top:16px;font-size:1rem}
+.result:empty:before{content:"\00a0"}
 .today-banner{background:#dceefa;border:2px solid #4e8fbd;border-radius:12px;padding:15px;text-align:center;font-weight:700;font-size:1.18rem;color:#17476b;margin-bottom:18px;line-height:1.65}
 .result{font-size:1.12rem}
 @media(max-width:420px){.card{padding:15px}.field{flex:1 1 85px}h1{font-size:1.45rem}}
@@ -61,30 +67,34 @@ button.copy{background:#386b55;flex:0 0 48px;width:48px;min-width:48px;display:i
 <div class="today-banner" id="todayBanner" aria-live="polite"></div>
 <section class="card">
 <h2>① 西暦から和暦へ</h2>
-<div class="row">
+<div class="row date-row">
  <div class="field"><label for="gy">西暦（年）</label><input id="gy" type="number" inputmode="numeric" min="1868" max="9999" placeholder="例：1943"></div>
  <div class="field"><label for="gm">月</label><input id="gm" type="number" inputmode="numeric" min="1" max="12" placeholder="月"></div>
  <div class="field"><label for="gd">日</label><input id="gd" type="number" inputmode="numeric" min="1" max="31" placeholder="日"></div>
 </div>
-<div class="actions"><button type="button" onclick="fromGregorian()">変換</button><button class="secondary" type="button" onclick="clearInputs('g')">クリア</button><button class="copy" type="button" onclick="copyResult('gResult')" title="コピー" aria-label="変換結果をコピー"><svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg></button></div>
-<div id="gResult" class="result" aria-live="polite">変換結果</div>
+<div class="actions"><button class="secondary" type="button" onclick="clearInputs('g')">クリア</button><button class="copy" type="button" onclick="copyResult('gResult')" title="コピー" aria-label="変換結果をコピー"><svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg></button></div>
+<div class="result-label">変換結果</div>
+<div id="gResult" class="result" aria-live="polite"></div>
 </section>
 
 <section class="card">
 <h2>② 和暦から西暦へ</h2>
-<div class="row">
+<div class="row era-row">
  <div class="field"><label for="era">元号</label><select id="era"><option value="令和">令和</option><option value="平成">平成</option><option value="昭和">昭和</option><option value="大正">大正</option><option value="明治">明治</option></select></div>
+</div>
+<div class="row date-row">
  <div class="field"><label for="ey">年（元年は1）</label><input id="ey" type="number" inputmode="numeric" min="1" max="9999" placeholder="例：18"></div>
  <div class="field"><label for="em">月</label><input id="em" type="number" inputmode="numeric" min="1" max="12" placeholder="月"></div>
  <div class="field"><label for="ed">日</label><input id="ed" type="number" inputmode="numeric" min="1" max="31" placeholder="日"></div>
 </div>
-<div class="actions"><button type="button" onclick="toGregorian()">変換</button><button class="secondary" type="button" onclick="clearInputs('e')">クリア</button><button class="copy" type="button" onclick="copyResult('eResult')" title="コピー" aria-label="変換結果をコピー"><svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg></button></div>
-<div id="eResult" class="result" aria-live="polite">変換結果</div>
+<div class="actions"><button class="secondary" type="button" onclick="clearInputs('e')">クリア</button><button class="copy" type="button" onclick="copyResult('eResult')" title="コピー" aria-label="変換結果をコピー"><svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg></button></div>
+<div class="result-label">変換結果</div>
+<div id="eResult" class="result" aria-live="polite"></div>
 </section>
 
 
 <p class="note">対応元号：明治・大正・昭和・平成・令和。元号の開始日・終了日を日単位で判定します。日付の計算はこの端末内で行い、入力内容を外部へ送信しません。</p>
-<div class="footer">オフライン対応・第11版</div>
+<div class="footer">オフライン対応・第12版</div>
 </main>
 <div id="keypadBackdrop" role="dialog" aria-modal="true" aria-labelledby="keypadTitle" onclick="if(event.target===this)closeKeypad()">
  <div id="keypad">
@@ -138,20 +148,41 @@ function refreshToday(){
  const d=new Date();
  document.getElementById('todayBanner').replaceChildren();
   const banner=document.getElementById('todayBanner');
+  const label=document.createElement('div');label.className='today-label';label.textContent='今日';banner.appendChild(label);
   for(const line of ['西暦　'+dateText(d),'和暦　'+(eraText(d)||'対象外')]){const div=document.createElement('div');div.className='today-line';div.textContent=line;banner.appendChild(div);}
 }
 refreshToday();
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshToday()});
 window.addEventListener('focus',refreshToday);
+// 年・月・日がすべて入力されたら自動変換。入力途中は結果を空にする。
+const autoTimers={g:null,e:null};
+function scheduleConvert(prefix){
+ clearTimeout(autoTimers[prefix]);
+ const resultId=prefix==='g'?'gResult':'eResult';
+ const complete=['y','m','d'].every(part=>document.getElementById(prefix+part).value.trim()!=='');
+ if(!complete){show(resultId,'');return;}
+ autoTimers[prefix]=setTimeout(()=>{
+  if(prefix==='g')fromGregorian();else toGregorian();
+ },400);
+}
+for(const prefix of ['g','e']){
+ for(const part of ['y','m','d']){
+  const el=document.getElementById(prefix+part);
+  el.addEventListener('input',()=>scheduleConvert(prefix));
+  el.addEventListener('change',()=>scheduleConvert(prefix));
+ }
+}
+document.getElementById('era').addEventListener('change',()=>scheduleConvert('e'));
 function clearInputs(prefix){
+ clearTimeout(autoTimers[prefix]);
  for(const part of ['y','m','d'])document.getElementById(prefix+part).value='';
  if(prefix==='e')document.getElementById('era').value='令和';
  const id=prefix==='e'?'eResult':'gResult';
- show(id,'変換結果');
+ show(id,'');
 }
 async function copyResult(id){
  const el=document.getElementById(id);
- if(el.classList.contains('error')||el.textContent.trim()==='変換結果'){alert('先に変換してください。');return;}
+ if(el.classList.contains('error')||!el.textContent.trim()){alert('先に変換してください。');return;}
  const value=el.innerText;
  try{
    if(navigator.clipboard&&window.isSecureContext)await navigator.clipboard.writeText(value);
