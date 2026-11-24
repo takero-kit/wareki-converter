@@ -16,8 +16,8 @@
 main{max-width:760px;margin:auto}
 h1{font-size:1.55rem;text-align:center;color:#17476b;margin:8px 0 5px}
 .sub{text-align:center;color:#526273;margin:0 0 20px;font-size:.94rem}
-.card{background:#fff;border:1px solid #d8e1e8;border-radius:14px;padding:18px;margin:14px 0;box-shadow:0 2px 8px #17324d0b}
-h2{font-size:1.15rem;color:#17476b;margin:0 0 14px}
+.card{background:#fff3df;border:1px solid #e6d6bb;border-radius:14px;padding:18px;margin:14px 0;box-shadow:0 2px 8px #17324d0b}
+h2{font-size:1.725rem;color:#17476b;margin:0 0 14px}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:end}
 .field{flex:1 1 110px;min-width:90px}
 label{display:block;font-size:.9rem;margin:0 0 6px;color:#465565}
@@ -26,6 +26,7 @@ button{border:0;border-radius:9px;padding:12px 18px;font-size:1rem;font-weight:6
 button:active{opacity:.8}
 .actions{display:flex;gap:8px;flex-wrap:nowrap;align-items:stretch;width:100%}
 .actions button{flex:1 1 0;min-width:0;padding:12px 10px;white-space:nowrap;margin-top:14px}
+.actions button.secondary{flex:0 0 calc((100% - 56px)/2)}
 button.secondary{background:#e6eef5;color:#17476b;border:1px solid #aec3d4}
 button.copy{background:#386b55;flex:0 0 48px;width:48px;min-width:48px;display:inline-flex;justify-content:center;align-items:center;padding:12px}button.copy svg{display:block}button.copy:focus-visible{outline:3px solid #ffb83d;outline-offset:2px}
 .today-banner .today-line{display:block;text-align:left;max-width:320px;margin:0 auto}
@@ -38,8 +39,8 @@ button.copy{background:#386b55;flex:0 0 48px;width:48px;min-width:48px;display:i
 .today-banner{background:#dceefa;border:2px solid #4e8fbd;border-radius:12px;padding:15px;text-align:center;font-weight:700;font-size:1.18rem;color:#17476b;margin-bottom:18px;line-height:1.65}
 .result{font-size:1.12rem}
 @media(max-width:420px){.card{padding:15px}.field{flex:1 1 85px}h1{font-size:1.45rem}}
-.result{margin-top:14px;padding:13px;background:#eef5fa;border-radius:9px;min-height:48px;line-height:1.7;overflow-wrap:anywhere}
-.result strong{font-size:1.12rem;color:#17476b}
+.result{margin-top:14px;padding:13px;background:#ffead0;border-radius:9px;min-height:48px;line-height:1.7;overflow-wrap:anywhere}
+.result strong{font-size:1.456rem;color:#17476b}
 .error{color:#a12626;background:#fff0f0}
 .note{font-size:.85rem;color:#596979;line-height:1.6}
 .footer{text-align:center;font-size:.8rem;color:#718096;margin-top:20px}
@@ -66,19 +67,18 @@ button.copy{background:#386b55;flex:0 0 48px;width:48px;min-width:48px;display:i
 
 <div class="today-banner" id="todayBanner" aria-live="polite"></div>
 <section class="card">
-<h2>① 西暦から和暦へ</h2>
+<h2>① 西暦→和暦</h2>
 <div class="row date-row">
  <div class="field"><label for="gy">西暦（年）</label><input id="gy" type="number" inputmode="numeric" min="1868" max="9999" placeholder="例：1943"></div>
  <div class="field"><label for="gm">月</label><input id="gm" type="number" inputmode="numeric" min="1" max="12" placeholder="月"></div>
  <div class="field"><label for="gd">日</label><input id="gd" type="number" inputmode="numeric" min="1" max="31" placeholder="日"></div>
 </div>
-<div class="result-label">変換結果</div>
 <div id="gResult" class="result" aria-live="polite"></div>
 <div class="actions"><button class="secondary" type="button" onclick="clearInputs('g')">クリア</button><button class="copy" type="button" onclick="copyResult('gResult')" title="コピー" aria-label="変換結果をコピー"><svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg></button></div>
 </section>
 
 <section class="card">
-<h2>② 和暦から西暦へ</h2>
+<h2>② 和暦→西暦</h2>
 <div class="row era-row">
  <div class="field"><label for="era">元号</label><select id="era"><option value="令和">令和</option><option value="平成">平成</option><option value="昭和">昭和</option><option value="大正">大正</option><option value="明治">明治</option></select></div>
 </div>
@@ -87,14 +87,13 @@ button.copy{background:#386b55;flex:0 0 48px;width:48px;min-width:48px;display:i
  <div class="field"><label for="em">月</label><input id="em" type="number" inputmode="numeric" min="1" max="12" placeholder="月"></div>
  <div class="field"><label for="ed">日</label><input id="ed" type="number" inputmode="numeric" min="1" max="31" placeholder="日"></div>
 </div>
-<div class="result-label">変換結果</div>
 <div id="eResult" class="result" aria-live="polite"></div>
 <div class="actions"><button class="secondary" type="button" onclick="clearInputs('e')">クリア</button><button class="copy" type="button" onclick="copyResult('eResult')" title="コピー" aria-label="変換結果をコピー"><svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg></button></div>
 </section>
 
 
 <p class="note">対応元号：明治・大正・昭和・平成・令和。元号の開始日・終了日を日単位で判定します。日付の計算はこの端末内で行い、入力内容を外部へ送信しません。</p>
-<div class="footer">オフライン対応・第13版</div>
+<div class="footer">オフライン対応・第15版</div>
 </main>
 <div id="keypadBackdrop" role="dialog" aria-modal="true" aria-labelledby="keypadTitle" onclick="if(event.target===this)closeKeypad()">
  <div id="keypad">
@@ -225,7 +224,7 @@ function durationText(dt){
  let cursor2=addMonthsClamped(cursor,months);
  if(cursor2>end){months--;cursor2=addMonthsClamped(cursor,months)}
  const days=Math.round((end-cursor2)/86400000);
- return `<div style="margin-top:9px;border-top:1px solid #c9dce8;padding-top:9px">${heading}<br>${years}年${months}か月${days}日</div>`;
+ return `<div style="margin-top:9px;border-top:1px solid #c9dce8;padding-top:9px">${heading}<br><span style="font-size:1.456rem">${years}年${months}か月${days}日</span></div>`;
 }
 function fromGregorian(){
  const r=readDate("g");if(r.error)return show("gResult",r.error,true);
