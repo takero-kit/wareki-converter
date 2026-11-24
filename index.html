@@ -24,10 +24,11 @@ label{display:block;font-size:.9rem;margin:0 0 6px;color:#465565}
 input,select{width:100%;padding:12px 10px;border:1px solid #aebdca;border-radius:8px;font-size:1.13rem;background:white;color:#17212b}
 button{border:0;border-radius:9px;padding:12px 18px;font-size:1rem;font-weight:600;background:#245b83;color:white;cursor:pointer;margin-top:14px}
 button:active{opacity:.8}
-.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.actions button{flex:1 1 135px}
+.actions{display:flex;gap:8px;flex-wrap:nowrap;align-items:stretch;width:100%}
+.actions button{flex:1 1 0;min-width:0;padding:12px 6px;white-space:nowrap;margin-top:14px}
 button.secondary{background:#e6eef5;color:#17476b;border:1px solid #aec3d4}
-button.copy{background:#386b55;flex:0 0 54px;width:54px;min-width:54px;display:inline-flex;justify-content:center;align-items:center;padding:12px}button.copy svg{display:block}button.copy:focus-visible{outline:3px solid #ffb83d;outline-offset:2px}
+button.copy{background:#386b55;flex:0 0 48px;width:48px;min-width:48px;display:inline-flex;justify-content:center;align-items:center;padding:12px}button.copy svg{display:block}button.copy:focus-visible{outline:3px solid #ffb83d;outline-offset:2px}
+.today-banner .today-line{display:block;text-align:left;max-width:320px;margin:0 auto}
 .today-banner{background:#dceefa;border:2px solid #4e8fbd;border-radius:12px;padding:15px;text-align:center;font-weight:700;font-size:1.18rem;color:#17476b;margin-bottom:18px;line-height:1.65}
 .result{font-size:1.12rem}
 @media(max-width:420px){.card{padding:15px}.field{flex:1 1 85px}h1{font-size:1.45rem}}
@@ -62,11 +63,11 @@ button.copy{background:#386b55;flex:0 0 54px;width:54px;min-width:54px;display:i
 <h2>① 西暦から和暦へ</h2>
 <div class="row">
  <div class="field"><label for="gy">西暦（年）</label><input id="gy" type="number" inputmode="numeric" min="1868" max="9999" placeholder="例：1943"></div>
- <div class="field"><label for="gm">月</label><select id="gm"><option value="">選択</option></select></div>
- <div class="field"><label for="gd">日</label><select id="gd"><option value="">選択</option></select></div>
+ <div class="field"><label for="gm">月</label><input id="gm" type="number" inputmode="numeric" min="1" max="12" placeholder="月"></div>
+ <div class="field"><label for="gd">日</label><input id="gd" type="number" inputmode="numeric" min="1" max="31" placeholder="日"></div>
 </div>
 <div class="actions"><button type="button" onclick="fromGregorian()">変換</button><button class="secondary" type="button" onclick="clearInputs('g')">クリア</button><button class="copy" type="button" onclick="copyResult('gResult')" title="コピー" aria-label="変換結果をコピー"><svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg></button></div>
-<div id="gResult" class="result" aria-live="polite">変換結果がここに表示されます。</div>
+<div id="gResult" class="result" aria-live="polite">変換結果</div>
 </section>
 
 <section class="card">
@@ -74,16 +75,16 @@ button.copy{background:#386b55;flex:0 0 54px;width:54px;min-width:54px;display:i
 <div class="row">
  <div class="field"><label for="era">元号</label><select id="era"><option value="令和">令和</option><option value="平成">平成</option><option value="昭和">昭和</option><option value="大正">大正</option><option value="明治">明治</option></select></div>
  <div class="field"><label for="ey">年（元年は1）</label><input id="ey" type="number" inputmode="numeric" min="1" max="9999" placeholder="例：18"></div>
- <div class="field"><label for="em">月</label><select id="em"><option value="">選択</option></select></div>
- <div class="field"><label for="ed">日</label><select id="ed"><option value="">選択</option></select></div>
+ <div class="field"><label for="em">月</label><input id="em" type="number" inputmode="numeric" min="1" max="12" placeholder="月"></div>
+ <div class="field"><label for="ed">日</label><input id="ed" type="number" inputmode="numeric" min="1" max="31" placeholder="日"></div>
 </div>
 <div class="actions"><button type="button" onclick="toGregorian()">変換</button><button class="secondary" type="button" onclick="clearInputs('e')">クリア</button><button class="copy" type="button" onclick="copyResult('eResult')" title="コピー" aria-label="変換結果をコピー"><svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg></button></div>
-<div id="eResult" class="result" aria-live="polite">変換結果がここに表示されます。</div>
+<div id="eResult" class="result" aria-live="polite">変換結果</div>
 </section>
 
 
 <p class="note">対応元号：明治・大正・昭和・平成・令和。元号の開始日・終了日を日単位で判定します。日付の計算はこの端末内で行い、入力内容を外部へ送信しません。</p>
-<div class="footer">オフライン用・試作版</div>
+<div class="footer">オフライン対応・第11版</div>
 </main>
 <div id="keypadBackdrop" role="dialog" aria-modal="true" aria-labelledby="keypadTitle" onclick="if(event.target===this)closeKeypad()">
  <div id="keypad">
@@ -97,7 +98,7 @@ button.copy{background:#386b55;flex:0 0 54px;width:54px;min-width:54px;display:i
 let keypadTarget=null;
 function openKeypad(id){
  keypadTarget=document.getElementById(id);
- document.getElementById('keypadTitle').textContent=(id==='gy'?'西暦':'和暦')+'（年）の数字入力';
+ document.getElementById('keypadTitle').textContent=({gy:'西暦（年）',ey:'和暦（年）',gm:'西暦の月',gd:'西暦の日',em:'和暦の月',ed:'和暦の日'}[id]||'数字')+'の数字入力';
  document.getElementById('keypadBackdrop').classList.add('visible');
  updateKeypadDisplay();
  document.querySelector('#keygrid button').focus();
@@ -106,7 +107,7 @@ function updateKeypadDisplay(){document.getElementById('keypadDisplay').textCont
 function keypadPress(key){
  if(!keypadTarget)return;
  let v=keypadTarget.value;
- if(key==='C')v='';else if(key==='←')v=v.slice(0,-1);else if(v.length<4)v+=key;
+ if(key==='C')v='';else if(key==='←')v=v.slice(0,-1);else if(v.length<(keypadTarget.id.endsWith('y')?4:2))v+=key;
  keypadTarget.value=v;
  keypadTarget.dispatchEvent(new Event('input',{bubbles:true}));
  updateKeypadDisplay();
@@ -118,7 +119,7 @@ for(const key of ['1','2','3','4','5','6','7','8','9','C','0','←']){
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&keypadTarget)closeKeypad()});
 // マウス・トラックパッド利用時は年の入力欄をクリックするだけで表示。
 // タッチ端末では標準の数字キーボードを利用する。
-for(const id of ['gy','ey']){
+for(const id of ['gy','gm','gd','ey','em','ed']){
  const input=document.getElementById(id);
  input.addEventListener('click',event=>{
   if(event.detail>0 && window.matchMedia('(pointer:fine)').matches && !keypadTarget){
@@ -133,50 +134,24 @@ const eras = [
  {name:"平成", start:"1989-01-08", end:"2019-04-30", startYear:1989},
  {name:"令和", start:"2019-05-01", end:"9999-12-31", startYear:2019}
 ];
-function fillMonths(prefix){
- const sel=document.getElementById(prefix+'m');
- for(let m=1;m<=12;m++)sel.add(new Option(m+'月',String(m)));
-}
-function updateDays(prefix){
- const y=Number(document.getElementById(prefix+'y').value);
- const m=Number(document.getElementById(prefix+'m').value);
- const old=document.getElementById(prefix+'d').value;
- const sel=document.getElementById(prefix+'d');
- sel.replaceChildren(new Option('選択',''));
- if(!Number.isInteger(y)||y<1||!m)return;
- const westernYear=prefix==='e'?eras.find(e=>e.name===document.getElementById('era').value).startYear+y-1:y;
- if(westernYear<1||westernYear>9999)return;
- const last=new Date(2000,m,1);
- last.setFullYear(westernYear);
- last.setDate(0);
- const count=last.getDate();
- for(let d=1;d<=count;d++)sel.add(new Option(d+'日',String(d)));
- if(Number(old)>=1&&Number(old)<=count)sel.value=old;
-}
 function refreshToday(){
  const d=new Date();
- document.getElementById('todayBanner').textContent='今日：'+dateText(d)+'（'+(eraText(d)||'和暦対象外')+'）';
-}
-for(const prefix of ['g','e']){
- fillMonths(prefix);
- for(const id of [prefix+'y',prefix+'m',...(prefix==='e'?['era']:[])])
-  document.getElementById(id).addEventListener('change',()=>updateDays(prefix));
- document.getElementById(prefix+'y').addEventListener('input',()=>updateDays(prefix));
- document.getElementById(prefix+'m').addEventListener('input',()=>updateDays(prefix));
+ document.getElementById('todayBanner').replaceChildren();
+  const banner=document.getElementById('todayBanner');
+  for(const line of ['西暦　'+dateText(d),'和暦　'+(eraText(d)||'対象外')]){const div=document.createElement('div');div.className='today-line';div.textContent=line;banner.appendChild(div);}
 }
 refreshToday();
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshToday()});
 window.addEventListener('focus',refreshToday);
 function clearInputs(prefix){
  for(const part of ['y','m','d'])document.getElementById(prefix+part).value='';
- updateDays(prefix);
  if(prefix==='e')document.getElementById('era').value='令和';
  const id=prefix==='e'?'eResult':'gResult';
- show(id,'変換結果がここに表示されます。');
+ show(id,'変換結果');
 }
 async function copyResult(id){
  const el=document.getElementById(id);
- if(el.classList.contains('error')||el.textContent.includes('ここに表示')){alert('先に変換してください。');return;}
+ if(el.classList.contains('error')||el.textContent.trim()==='変換結果'){alert('先に変換してください。');return;}
  const value=el.innerText;
  try{
    if(navigator.clipboard&&window.isSecureContext)await navigator.clipboard.writeText(value);
